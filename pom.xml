@@ -61,6 +61,20 @@
 			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
 		
+		<!-- security -->
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId> 
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.thymeleaf.extras</groupId>
+		    <artifactId>thymeleaf-extras-springsecurity4</artifactId>
+		    <version>3.0.1.RELEASE</version>
+		</dependency>
+	 
+		
 <!-- Test dependencies -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
