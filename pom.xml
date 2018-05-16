@@ -68,11 +68,26 @@
 			<artifactId>spring-boot-starter-security</artifactId> 
 		</dependency>
 		
-		<dependency>
+		 <dependency>
 		    <groupId>org.thymeleaf.extras</groupId>
 		    <artifactId>thymeleaf-extras-springsecurity4</artifactId>
-		    <version>3.0.1.RELEASE</version>
+		    <version>3.0.2.RELEASE</version>
 		</dependency>
+
+	<!-- for view resolvers - start -->
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-tomcat</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.apache.tomcat.embed</groupId>
+		<artifactId>tomcat-embed-jasper</artifactId>
+	</dependency>
+	<dependency>
+    <groupId>javax.servlet</groupId>
+    <artifactId>jstl</artifactId>
+</dependency>
+	<!-- for view resolvers - end -->
 	 
 		
 <!-- Test dependencies -->

@@ -24,7 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 	
 	private static final String[] PUBLIC_MATCHERS= {
-			
+			"/templates/**",
 			"/webjars/**",
             "/css/**",
             "/js/**",
@@ -67,14 +67,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 		Set securityDialects = new HashSet<IDialect>();
 		securityDialects.add(new SpringSecurityDialect());
+		
 		SpringTemplateEngine engine = new SpringTemplateEngine();
 		engine.setAdditionalDialects(securityDialects);
 		
 		return engine;
 	}
-	
-	
-	
 	
 	
 }
