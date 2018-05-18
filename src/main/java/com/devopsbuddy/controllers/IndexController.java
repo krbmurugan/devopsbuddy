@@ -15,13 +15,13 @@ public class IndexController {
 	I18nService i18nService;
 	
 	 private static final Logger logger = LogManager.getLogger(IndexController.class);
-	@RequestMapping("/contact.go")
+	@RequestMapping("/")
 	public String launchContacts() {
 		logger.info("inside launchContacts");
 		logger.debug("inside launchContacts--debug");
 		System.out.println("adfasdf");
 		logger.info("Message from properties.."+i18nService.getMessage("id2"));
-		return "contact";
+		return "index";
 	}
 	
 	
