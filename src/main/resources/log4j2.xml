@@ -11,7 +11,7 @@
 		<Logger name="com.devopsbuddy" level="debug">
 			<AppenderRef ref="Console" />
 		</Logger>
-		<Root level="debug">
+		<Root level="info">
 			<AppenderRef ref="Console" />
 		</Root>
 	</Loggers>

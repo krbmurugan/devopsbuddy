@@ -61,7 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		
 	}
 	
-	@Bean
+//	@Bean
 	public SpringTemplateEngine setTemplate() {
 		log.info("setting template..");
 
