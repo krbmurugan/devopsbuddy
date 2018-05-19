@@ -9,24 +9,5 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
 
-@Configuration
-@EnableWebMvc
-public class WebConfig 	extends WebMvcConfigurerAdapter {
-
-	     @Bean
-	     public ViewResolver getViewResolver(){
-	          InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-	          resolver.setPrefix("/templates/");
-	          resolver.setSuffix(".html");
-	          resolver.setViewClass(JstlView.class);
-	          return resolver;
-	     }
-
-//	     @Override
-//	     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer){
-//	          configurer.enable();
-//	     }
-	     
-	   
-
-	}
+ 
+public class WebConfig 	extends WebMvcConfigurerAdapter { }
