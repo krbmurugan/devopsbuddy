@@ -8,7 +8,7 @@
 
 	</Appenders>
 	<Loggers>
-		<Logger name="com.devopsbuddy" level="debug">
+		<Logger name="com.devopsbuddy" level="info">
 			<AppenderRef ref="Console" />
 		</Logger>
 		<Root level="info">
