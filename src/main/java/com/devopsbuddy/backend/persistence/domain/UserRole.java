@@ -27,6 +27,11 @@ public class UserRole implements Serializable{
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="role_id")
 	private Role role;
+	
+	public UserRole(Role role, User user) {
+		this.user=user;
+		this.role=role;
+	}
 
 	public User getUser() {
 		return user;

@@ -58,11 +58,11 @@ public class User implements Serializable{
 	@Column(name="stripe_cust_no")
 	private String stripeCustNo;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="plan_id")
 	private Plan plan;
 	
-	@OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	private Set<UserRole> userRoles = new HashSet<>();
 	
 	

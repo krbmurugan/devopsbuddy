@@ -1,14 +1,15 @@
-package com.devopsbuddy;
+package com.devopsbuddy.test.integration;
 
 import java.util.HashSet;
 import java.util.Set;
 
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.devopsbuddy.backend.persistence.domain.Role;
 import com.devopsbuddy.backend.persistence.domain.User;
@@ -18,28 +19,31 @@ import com.devopsbuddy.enums.PlanEnum;
 import com.devopsbuddy.enums.RoleEnum;
 import com.devopsbuddy.utils.UserUtils;
 
-@SpringBootApplication
-public class DevopsbuddyApplication implements CommandLineRunner{
+import junit.framework.Assert;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringBootTest
+public class UserServiceIntgTest {
 	
-	private static final Logger log = LoggerFactory.getLogger(DevopsbuddyApplication.class);
+	private static final Logger log = LoggerFactory.getLogger(UserServiceIntgTest.class);
+
 	
 	@Autowired
 	UserService userService;
-
-
-	public static void main(String[] args) {
-		SpringApplication.run(DevopsbuddyApplication.class, args);
-	}
-
-	@Override
-	public void run(String... args) throws Exception {
-
+	
+	@Test
+	public void testCreateUser() throws Exception{
 		Set<UserRole> userRoles = new HashSet<UserRole>();
 		User basicUser = UserUtils.createBasicUser();
 		userRoles.add(new UserRole(new Role(RoleEnum.BASIC), basicUser));
-		User createdUser = userService.createUser(basicUser, PlanEnum.BASIC, userRoles);	
-		log.info("User Created: UserName: "+createdUser.getFirstName() +" | userID: "+createdUser.getId());
+		log.info("BEfore Calling create userservice..");
 
+
+		User createdUser = userService.createUser(basicUser, PlanEnum.BASIC, userRoles);
+		log.info("UserID"+createdUser.getId());
+		Assert.assertNotNull(createdUser);
+		
 		
 	}
+
 }

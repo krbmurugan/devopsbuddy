@@ -2,6 +2,8 @@ package com.devopsbuddy.config;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.h2.server.web.WebServlet;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -23,6 +25,16 @@ public class DevConfig {
 		log.info("inside dev config...");
 
 		return new MockEmailService();
+	}
+	
+	@Bean
+	public ServletRegistrationBean h2ConsoleRegBean() {
+		ServletRegistrationBean bean = new ServletRegistrationBean(new WebServlet());
+		
+		bean.addUrlMappings("/h2console/*");
+		return bean;
+				
+		
 	}
 	
 	 

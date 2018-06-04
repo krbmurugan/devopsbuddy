@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.devopsbuddy.backend.persistence.domain.FeedBack;
+import com.devopsbuddy.backend.persistence.repositoires.FeedBackRepository;
 import com.devopsbuddy.backend.service.EmailService;
 import com.devopsbuddy.web.domain.frontend.FeedbackPojo;
 
@@ -23,6 +25,9 @@ public class FeedbackController {
 	
 	@Autowired
 	private EmailService emailService;
+	
+	@Autowired
+	private FeedBackRepository feedbackRepo;
 
 	@RequestMapping(value = "/contact", method=RequestMethod.GET)
 	public String contactGet(ModelMap model) {
@@ -38,7 +43,12 @@ public class FeedbackController {
 	public String contactPost(@ModelAttribute(FEEDBACK_MODEL_KEY) FeedbackPojo fp)
 	{
 		logger.info("inside contact method - post" + fp);
+		
+		feedbackRepo.save(new FeedBack(fp));
+		
 		emailService.sendFeedbackEmail(fp);
+		
+		
 		
 		return FeedbackController.CONTACT_US_VIEW_NAME;
 	}

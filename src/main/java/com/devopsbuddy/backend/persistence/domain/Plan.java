@@ -6,6 +6,8 @@ import javax.persistence.Id;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.devopsbuddy.enums.PlanEnum;
+
 @Entity
 public class Plan {
 	
@@ -22,6 +24,14 @@ public class Plan {
 	
 	public Plan() {
 		// TODO Auto-generated constructor stub
+	}
+
+
+	public Plan(PlanEnum plansEnum) {
+		
+		this.setId(plansEnum.getId());
+		this.setName(plansEnum.getPlanName());
+		
 	}
 
 
