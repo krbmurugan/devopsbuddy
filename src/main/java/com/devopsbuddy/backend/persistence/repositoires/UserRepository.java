@@ -7,5 +7,11 @@ import com.devopsbuddy.backend.persistence.domain.User;
 
 @Repository
 public interface UserRepository extends CrudRepository<User, Integer>{
+	/**
+	 * Returns a User based on the username
+	 * @param userName
+	 * @return
+	 */
+	public User findByUserName(String userName);
 
 }

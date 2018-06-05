@@ -38,6 +38,24 @@ public class Role implements Serializable{
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	
 	
 	
 	

@@ -23,6 +23,7 @@ import com.devopsbuddy.backend.persistence.repositoires.RoleRepository;
 import com.devopsbuddy.backend.persistence.repositoires.UserRepository;
 import com.devopsbuddy.enums.PlanEnum;
 import com.devopsbuddy.enums.RoleEnum;
+import com.devopsbuddy.utils.UserUtils;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
@@ -106,37 +107,22 @@ public class RepositoriesIntgTest {
 	@Test
 	public void testCreateNewUser() throws Exception{
 		
-		User user = new User();
-		
-		Plan plan = createPlan(PlanEnum.BASIC);
-		planRepository.save(plan);
-		
-		
-		
-		Role role = createRole(RoleEnum.BASIC);
-		roleRepository.save(role);
-		
-		Set<UserRole> userRoles = new HashSet<UserRole>();
-		UserRole userRole = new UserRole( role,user);
-		userRoles.add(userRole);
-		
-		user.getUserRoles().addAll(userRoles);
-		
-		for(UserRole ur : userRoles ) {
-			roleRepository.save(ur.getRole());
-		}
-		log.info("UserID Before Creation11: " +user.getId());
-		
-		userRepository.save(user);
-		
-
-		
-		User newlyCreatedUser = userRepository.findById(user.getId()).get();
-		log.info("UserID Before Creation222: " +user.getId());
+		User newlyCreatedUser = createNewUser();
 		log.info("UserID After creation: " + newlyCreatedUser.getId());
 		Assert.notNull(newlyCreatedUser);
 		
 		
+		
+	}
+	
+	@Test
+	public void testDeleteUser() throws Exception{
+		User newlyCreatedUser = createNewUser();
+		log.info("User ID in testDeleteUser::"+newlyCreatedUser.getId());
+
+		userRepository.delete(newlyCreatedUser);
+		boolean isUserExists = userRepository.existsById(newlyCreatedUser.getId());
+		Assert.isTrue(!isUserExists);
 		
 	}
 	
@@ -146,6 +132,34 @@ public class RepositoriesIntgTest {
 	 
 	 private Role createRole(RoleEnum roleEnum) {
 		 return new Role(roleEnum);
+	 }
+	 
+	 public User createNewUser() {
+
+			
+			User user = UserUtils.createBasicUser();
+			
+			Plan plan = createPlan(PlanEnum.BASIC);
+			plan=planRepository.save(plan);
+			
+			user.setPlan(plan);
+			
+			Role role = createRole(RoleEnum.BASIC);
+			roleRepository.save(role);
+			
+			Set<UserRole> userRoles = new HashSet<UserRole>();
+			UserRole userRole = new UserRole( role,user);
+			userRoles.add(userRole);
+			
+			user.getUserRoles().addAll(userRoles);
+			
+			for(UserRole ur : userRoles ) {
+				roleRepository.save(ur.getRole());
+			}
+			log.info("UserID Before Creation11: " +user.getId());
+			
+			userRepository.save(user);
+			return user;
 	 }
 
 	     

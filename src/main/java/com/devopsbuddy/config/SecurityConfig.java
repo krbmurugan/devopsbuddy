@@ -12,6 +12,9 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import com.devopsbuddy.backend.service.UserSecurityService;
 
 @Configuration
 @EnableWebSecurity
@@ -20,6 +23,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	private static final Logger log = LoggerFactory.getLogger(SecurityConfig.class);
 	@Autowired
 	private Environment environ;
+	
+	@Autowired
+	private UserSecurityService userSecurityService;
+	
+	 
 
 	
 	private static final String[] PUBLIC_MATCHERS= {
@@ -60,11 +68,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
-		auth
-			.inMemoryAuthentication()
+//		auth
+//			.inMemoryAuthentication()
+//		
+//			.withUser("user").password("{noop}pwd")
+//			.roles("USER");
 		
-			.withUser("user").password("{noop}pwd")
-			.roles("USER");
+		//the {noop} command for password encoder is added in the user.java class in setPassword().
+		auth.userDetailsService(userSecurityService);
 			
 		
 	}

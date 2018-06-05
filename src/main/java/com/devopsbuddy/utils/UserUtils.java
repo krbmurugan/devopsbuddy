@@ -12,7 +12,7 @@ public class UserUtils {
 	public static User createBasicUser() {
 		
 		User basicUser = new User();
-		basicUser.setUserName("basicUser");
+		basicUser.setUserName("user");
 		basicUser.setFirstName("basic");
 		basicUser.setLastName("user");
 		basicUser.setDescription("Basic user desc");
