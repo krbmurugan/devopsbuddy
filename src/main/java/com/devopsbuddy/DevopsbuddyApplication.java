@@ -6,6 +6,7 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -23,6 +24,15 @@ public class DevopsbuddyApplication implements CommandLineRunner{
 	
 	private static final Logger log = LoggerFactory.getLogger(DevopsbuddyApplication.class);
 	
+	@Value("${admin.username}")
+	private String adminUsername;
+	
+	@Value("${admin.password}")
+	private String adminPassword;
+	
+	@Value("${admin.email}")
+	private String adminEmail;
+	
 	@Autowired
 	UserService userService;
 
@@ -35,7 +45,9 @@ public class DevopsbuddyApplication implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 
 		Set<UserRole> userRoles = new HashSet<UserRole>();
-		User basicUser = UserUtils.createBasicUser("user", "user@gmail.com");
+		User basicUser = UserUtils.createBasicUser(adminUsername, adminEmail);
+		basicUser.setPassword(adminPassword);
+		
 		userRoles.add(new UserRole(new Role(RoleEnum.BASIC), basicUser));
 		User createdUser = userService.createUser(basicUser, PlanEnum.BASIC, userRoles);	
 		log.info("User Created: UserName: "+createdUser.getFirstName() +" | userID: "+createdUser.getId());
