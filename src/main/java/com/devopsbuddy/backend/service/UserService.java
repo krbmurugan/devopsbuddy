@@ -5,6 +5,7 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,10 +34,16 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 	
+	@Autowired
+	BCryptPasswordEncoder passwordEncoder;
+	
 	
 	
 	@Transactional
 	public User createUser(User user, PlanEnum planEnum, Set<UserRole> userRoles) {
+		
+		String encodedPwd = passwordEncoder.encode(user.getPassword());
+		user.setPassword(encodedPwd);
 		log.info("inside the create user service");
 		Plan plan = new Plan(planEnum);
 		Plan savedPlan=null;

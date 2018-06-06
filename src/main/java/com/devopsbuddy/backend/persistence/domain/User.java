@@ -109,7 +109,7 @@ public class User implements Serializable, UserDetails{
 	}
 
 	public void setPassword(String password) {
-		this.password = "{noop}"+password;
+		this.password =  password;
 	}
 
 	public String getEmail() {
