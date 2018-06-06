@@ -3,7 +3,9 @@ package com.devopsbuddy.test.integration;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,10 +33,17 @@ public class UserServiceIntgTest {
 	@Autowired
 	UserService userService;
 	
+	@Rule
+	public TestName testName = new TestName();
+	
 	@Test
 	public void testCreateUser() throws Exception{
+		String username = testName.getMethodName();
+		String email = testName.getMethodName()+"@gmail.com";
+		
 		Set<UserRole> userRoles = new HashSet<UserRole>();
-		User basicUser = UserUtils.createBasicUser();
+		
+		User basicUser = UserUtils.createBasicUser(username, email);
 		userRoles.add(new UserRole(new Role(RoleEnum.BASIC), basicUser));
 		log.info("BEfore Calling create userservice..");
 

@@ -4,7 +4,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,6 +56,9 @@ public class RepositoriesIntgTest {
 		
 		
 	}
+	
+	@Rule
+	public TestName testName = new TestName();
 	
 	@Test
 	public void testCreateNewPlan() throws Exception{
@@ -106,8 +111,10 @@ public class RepositoriesIntgTest {
 	
 	@Test
 	public void testCreateNewUser() throws Exception{
+		String username = testName.getMethodName();
+		String email = testName.getMethodName()+"@gmail.com";
 		
-		User newlyCreatedUser = createNewUser();
+		User newlyCreatedUser = createNewUser(username, email);
 		log.info("UserID After creation: " + newlyCreatedUser.getId());
 		Assert.notNull(newlyCreatedUser);
 		
@@ -117,7 +124,9 @@ public class RepositoriesIntgTest {
 	
 	@Test
 	public void testDeleteUser() throws Exception{
-		User newlyCreatedUser = createNewUser();
+		String username = testName.getMethodName();
+		String email = testName.getMethodName()+"@gmail.com";
+		User newlyCreatedUser = createNewUser(username, email);
 		log.info("User ID in testDeleteUser::"+newlyCreatedUser.getId());
 
 		userRepository.delete(newlyCreatedUser);
@@ -134,10 +143,10 @@ public class RepositoriesIntgTest {
 		 return new Role(roleEnum);
 	 }
 	 
-	 public User createNewUser() {
+	 public User createNewUser(String username, String email) {
 
 			
-			User user = UserUtils.createBasicUser();
+			User user = UserUtils.createBasicUser(username,  email);
 			
 			Plan plan = createPlan(PlanEnum.BASIC);
 			plan=planRepository.save(plan);

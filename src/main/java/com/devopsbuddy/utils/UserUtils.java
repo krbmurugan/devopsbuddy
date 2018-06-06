@@ -9,14 +9,14 @@ public class UserUtils {
 	}
 	
 	
-	public static User createBasicUser() {
+	public static User createBasicUser(String username, String email) {
 		
 		User basicUser = new User();
-		basicUser.setUserName("user");
+		basicUser.setUserName(username);
 		basicUser.setFirstName("basic");
 		basicUser.setLastName("user");
 		basicUser.setDescription("Basic user desc");
-		basicUser.setEmail("basic@user.com");
+		basicUser.setEmail(email);
 		basicUser.setPassword("password");
 		basicUser.setPhoneNo("7897897894");
 		basicUser.setEnabled(true);
