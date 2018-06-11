@@ -128,6 +128,7 @@ public class RepositoriesIntgTest {
 		String email = testName.getMethodName()+"@gmail.com";
 		User newlyCreatedUser = createNewUser(username, email);
 		log.info("User ID in testDeleteUser::"+newlyCreatedUser.getId());
+		
 
 		userRepository.delete(newlyCreatedUser);
 		boolean isUserExists = userRepository.existsById(newlyCreatedUser.getId());

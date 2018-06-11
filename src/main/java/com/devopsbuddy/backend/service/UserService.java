@@ -1,5 +1,6 @@
 package com.devopsbuddy.backend.service;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.devopsbuddy.backend.persistence.domain.Plan;
+import com.devopsbuddy.backend.persistence.domain.Role;
 import com.devopsbuddy.backend.persistence.domain.User;
 import com.devopsbuddy.backend.persistence.domain.UserRole;
 import com.devopsbuddy.backend.persistence.repositoires.PlanRepository;
@@ -57,12 +59,14 @@ public class UserService {
 
 		}
 		user.setPlan(savedPlan);
-		
+		Set<UserRole> savedUserRoles = new HashSet<UserRole>();
 		 for (UserRole ur : userRoles) {
-	            roleRepository.save(ur.getRole());
+			  Role r = roleRepository.save(ur.getRole());
+			  UserRole savedUR = new UserRole(r, ur.getUser());
+			  savedUserRoles.add(savedUR);
 	        }
 		
-		user.getUserRoles().addAll(userRoles);
+		user.getUserRoles().addAll(savedUserRoles);
 		userRepository.save(user);
 		log.info("User created success- ID:  "+user.getId());
 		return user;				
