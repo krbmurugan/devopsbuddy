@@ -29,22 +29,10 @@ import com.devopsbuddy.utils.UserUtils;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
-public class RepositoriesIntgTest {
+public class UserIntgTest extends AbstractIntgTest{
 	
-	private static final Logger log = LoggerFactory.getLogger(RepositoriesIntgTest.class);
-
+	private static final Logger log = LoggerFactory.getLogger(UserIntgTest.class);
 	
-	@Autowired
-	private PlanRepository planRepository;
-	
-	@Autowired
-	private RoleRepository roleRepository;
-	
-	@Autowired
-	private UserRepository userRepository;
-	
-	@Autowired
-	private FeedBackRepository feedbackRepo;
 	
 	
 	@Before
@@ -136,41 +124,7 @@ public class RepositoriesIntgTest {
 		
 	}
 	
-	 private Plan createPlan(PlanEnum plansEnum) {
-	        return new Plan(plansEnum);
-	    }
 	 
-	 private Role createRole(RoleEnum roleEnum) {
-		 return new Role(roleEnum);
-	 }
-	 
-	 public User createNewUser(String username, String email) {
-
-			
-			User user = UserUtils.createBasicUser(username,  email);
-			
-			Plan plan = createPlan(PlanEnum.BASIC);
-			plan=planRepository.save(plan);
-			
-			user.setPlan(plan);
-			
-			Role role = createRole(RoleEnum.BASIC);
-			roleRepository.save(role);
-			
-			Set<UserRole> userRoles = new HashSet<UserRole>();
-			UserRole userRole = new UserRole( role,user);
-			userRoles.add(userRole);
-			
-			user.getUserRoles().addAll(userRoles);
-			
-			for(UserRole ur : userRoles ) {
-				roleRepository.save(ur.getRole());
-			}
-			log.info("UserID Before Creation11: " +user.getId());
-			
-			userRepository.save(user);
-			return user;
-	 }
 
 	     
 	

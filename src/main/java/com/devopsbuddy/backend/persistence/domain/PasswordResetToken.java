@@ -104,5 +104,12 @@ public class PasswordResetToken implements Serializable{
 	public int hashCode() {
         return (int) (id ^ (id >>> 32));
         }
+	
+	@Override
+	public String toString() {
+		return "\nID:\t"+id
+				+ "\nToken:\t"+ token
+				+ "\nexpiryDate:\t"+ expiryDate;
+	}
 
 }
