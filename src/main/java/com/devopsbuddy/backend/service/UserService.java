@@ -72,6 +72,14 @@ public class UserService {
 		return user;				
 	}
 	
+	@Transactional
+	public void updateUserPassword(int userId, String password) {
+		password = passwordEncoder.encode(password);
+		userRepository.updateUserPwd(userId, password);
+		log.info("Password changed Successfully");
+
+	}
+	
 	
 
 }

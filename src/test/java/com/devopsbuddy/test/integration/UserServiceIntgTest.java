@@ -25,7 +25,7 @@ import junit.framework.Assert;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
-public class UserServiceIntgTest {
+public class UserServiceIntgTest extends AbstractIntgTest{
 	
 	private static final Logger log = LoggerFactory.getLogger(UserServiceIntgTest.class);
 
@@ -51,8 +51,18 @@ public class UserServiceIntgTest {
 		User createdUser = userService.createUser(basicUser, PlanEnum.BASIC, userRoles);
 		log.info("UserID"+createdUser.getId());
 		Assert.assertNotNull(createdUser);
+			
+	}
+	
+	@Test
+	public void testUpdateUserPwd() throws Exception{
+		User user = createNewUser(testName.getMethodName());
+		log.info("user id and password before update:"+user.getId()+":"+user.getPassword());
+		userService.updateUserPassword(user.getId(), "testpassword");
 		
-		
+		User retrievedUser = userRepository.findByUserName(user.getUserName());
+		log.info("user id and password after update:"+retrievedUser.getId()+":"+retrievedUser.getPassword());
+
 	}
 
 }

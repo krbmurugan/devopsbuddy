@@ -23,10 +23,10 @@ import com.devopsbuddy.backend.persistence.domain.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
-public class PasswordResetTokenIntgTest extends AbstractIntgTest{
+public class PRTRepoIntgTest extends AbstractIntgTest{
 	
 	
-	private static final Logger log = LoggerFactory.getLogger(PasswordResetTokenIntgTest.class);
+	private static final Logger log = LoggerFactory.getLogger(PRTRepoIntgTest.class);
 
 	
 	@Value("${token.expiration.length.minutes}")

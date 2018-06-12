@@ -29,9 +29,9 @@ import com.devopsbuddy.utils.UserUtils;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
-public class UserIntgTest extends AbstractIntgTest{
+public class UserRepoIntgTest extends AbstractIntgTest{
 	
-	private static final Logger log = LoggerFactory.getLogger(UserIntgTest.class);
+	private static final Logger log = LoggerFactory.getLogger(UserRepoIntgTest.class);
 	
 	
 	
@@ -124,11 +124,20 @@ public class UserIntgTest extends AbstractIntgTest{
 		
 	}
 	
-	 
-
-	     
-	
-	
+	@Test
+	public void testFindUserByEmail() throws Exception{
+		String username = testName.getMethodName();
+		String email = testName.getMethodName()+"@gmail.com";
+		User newlyCreatedUser = createNewUser(username, email);
+		log.info("User ID in testDeleteUser::"+newlyCreatedUser.getEmail());
+		
+		User retrievedUser = userRepository.findByEmail(email);
+		org.junit.Assert.assertNotNull(retrievedUser);
+		
+		User retrievedUser2 = userRepository.findByEmail("usernotAvailable@test.com");
+		org.junit.Assert.assertNull(retrievedUser2);
+		
+	}
 	
 	
 
