@@ -10,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.devopsbuddy.backend.persistence.domain.PasswordResetToken;
 import com.devopsbuddy.backend.persistence.domain.Plan;
 import com.devopsbuddy.backend.persistence.domain.Role;
 import com.devopsbuddy.backend.persistence.domain.User;
@@ -80,6 +81,13 @@ public class UserService {
 
 	}
 	
+	public boolean isUserEmailExists(String email) {
+		User user = userRepository.findByEmail(email);
+		
+		return null!=user;
+	}
+	
+	 
 	
 
 }

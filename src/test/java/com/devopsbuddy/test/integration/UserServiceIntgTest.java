@@ -3,6 +3,7 @@ package com.devopsbuddy.test.integration;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestName;
@@ -21,7 +22,7 @@ import com.devopsbuddy.enums.PlanEnum;
 import com.devopsbuddy.enums.RoleEnum;
 import com.devopsbuddy.utils.UserUtils;
 
-import junit.framework.Assert;
+
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
@@ -62,6 +63,7 @@ public class UserServiceIntgTest extends AbstractIntgTest{
 		
 		User retrievedUser = userRepository.findByUserName(user.getUserName());
 		log.info("user id and password after update:"+retrievedUser.getId()+":"+retrievedUser.getPassword());
+		Assert.assertNotSame(user.getPassword(), retrievedUser.getPassword());
 
 	}
 
